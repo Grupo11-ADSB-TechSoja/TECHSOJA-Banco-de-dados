@@ -41,7 +41,7 @@ fkEstabelecimento int, foreign key (fkEstabelecimento) references Estabeleciment
 );
 
 alter table Representante modify column TelefoneCel char(14);
-alter table Estabelecimento modify column CNPJ  (14);
+alter table Estabelecimento modify column CNPJ  char(14);
 
 
 desc Representante;
@@ -69,4 +69,6 @@ insert into Representante  values
 select * from Estabelecimento;
 select * from Representante;
 
+alter table Sensor add column StatusSensor varchar(10) not null constraint Statuscheck check (StatusSensor in('Ativo','Inativo','Manutenção'));
 
+desc Sensor;
