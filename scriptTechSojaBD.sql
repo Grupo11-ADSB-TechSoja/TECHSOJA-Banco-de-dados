@@ -1,4 +1,4 @@
-create database techsoja;
+-- create database techsoja;
 use techsoja;
 
 create table Representante (
@@ -72,3 +72,14 @@ select * from Representante;
 alter table Sensor add column StatusSensor varchar(10) not null constraint Statuscheck check (StatusSensor in('Ativo','Inativo','Manutenção'));
 
 desc Sensor;
+
+-- tabela para armazenar o histórico de medições dos sensores 
+
+CREATE TABLE historico_medicoes(
+idMedicao INT,
+dataHora DATETIME,
+fkSensor int,
+constraint fkMedicaoSensor foreign key (fkSensor) references sensor(idSensor),
+primary key (fkSensor,idMedicao)
+);
+desc historico_medicoes;
