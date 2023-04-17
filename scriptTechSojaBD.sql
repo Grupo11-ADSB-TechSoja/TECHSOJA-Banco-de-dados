@@ -22,12 +22,25 @@ Telefone char(8)
 Alter table Representante add column fkEstabelecimento int, 
 			add foreign key (fkEstabelecimento) references Estabelecimento(idEstabelecimento);
 
+create table silo (
+idSilo int primary key auto_increment,
+localidade varchar(45),
+fk_estabelescimento int,
+constraint fkEstabelescimentoSilo 
+			foreign key (fk_estabelescimento) 
+			references estabelecimento(idEstabelecimento)
+)auto_increment = 100;
+
+alter table silo rename column fk_estabelescimento to fkEstabelecimento; 
 create table Sensor(
 idSensor int primary key auto_increment,
 Temperatura varchar(45),
 Umidade varchar(45),
-fkEstabelecimento int, foreign key (fkEstabelecimento) references Estabelecimento (idEstabelecimento)
-);
+fk_silo int, 
+constraint fkSiloSensor
+	foreign key (fk_silo) 
+references silo (idSilo)
+) auto_increment = 10;
 
 create table Logradouro (
 idLogradouro int primary key auto_increment,
@@ -69,7 +82,9 @@ insert into Representante  values
 select * from Estabelecimento;
 select * from Representante;
 
-alter table Sensor add column StatusSensor varchar(10) not null constraint Statuscheck check (StatusSensor in('Ativo','Inativo','Manutenção'));
+alter table Sensor
+ add column StatusSensor varchar(10) not null 
+ constraint Statuscheck check (StatusSensor in('Ativo','Inativo','Manutenção'));
 
 desc Sensor;
 
@@ -83,3 +98,16 @@ constraint fkMedicaoSensor foreign key (fkSensor) references sensor(idSensor),
 primary key (fkSensor,idMedicao)
 );
 desc historico_medicoes;
+
+select * from estabelecimento;
+
+insert into silo values
+(default,'Ns.sra do Carmo',1);
+insert into silo values 
+(default,'Ns.sra do Carmo',1),
+(default,'Santa fé',2),
+(default,'Santa fé',2),
+(default,'Santa fé',2);
+
+select * from silo join estabelecimento 
+	on idEstabelecimento = fkEstabelecimento;
