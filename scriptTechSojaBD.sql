@@ -91,12 +91,13 @@ desc Sensor;
 -- tabela para armazenar o histórico de medições dos sensores 
 
 CREATE TABLE historico_medicoes(
-idMedicao INT,
 dataHora DATETIME,
 fkSensor int,
 constraint fkMedicaoSensor foreign key (fkSensor) references sensor(idSensor),
-primary key (fkSensor,idMedicao)
+primary key (fkSensor,dataHora)
 );
+alter table historico_medicoes add column temperatura int;
+alter table historico_medicoes add column umidade int;
 desc historico_medicoes;
 
 select * from estabelecimento;
@@ -111,3 +112,4 @@ insert into silo values
 
 select * from silo join estabelecimento 
 	on idEstabelecimento = fkEstabelecimento;
+    
